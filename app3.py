@@ -5,6 +5,7 @@ pdf = FPDF(orientation="P", unit='mm', format="A4")
 pdf.set_auto_page_break(auto=False, margin=0)
 
 df = pd.read_csv("topics.csv")
+line_space = 10
 
 for index, row in df.iterrows():
     pdf.add_page()
@@ -14,6 +15,9 @@ for index, row in df.iterrows():
     pdf.cell(w=0, h=12, txt=row['Topic'], align='L', ln=1)
     pdf.line(10, 22, 200, 22)
 
+    #add lines
+    for i in range(int(260/line_space)):
+        pdf.line(10, 22 + line_space * (i + 1) , 200, 22 + line_space * (i + 1))
 
     #set te footer
     pdf.ln(265)
@@ -24,6 +28,10 @@ for index, row in df.iterrows():
 
     for i in range(row['Pages'] - 1):
         pdf.add_page()
+        
+                #add lines
+        for i in range(int(260/line_space)):
+            pdf.line(10, 22 + line_space * (i + 1) , 200, 22 + line_space * (i + 1))
 
         #set te footer
         pdf.ln(277)
